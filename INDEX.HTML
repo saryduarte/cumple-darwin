@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edición Especial Darwin 10 | FC Barcelona</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Cinzel:wght@700;900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #030712;
+      font-family: 'Montserrat', system-ui, sans-serif;
+      padding: 30px 16px;
+      color: #f8fafc;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* === FONDO DINÁMICO & NEBULOSAS === */
+    .bg-nebula {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(0, 77, 152, 0.35) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(165, 0, 68, 0.35) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 50%, rgba(237, 187, 0, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Estrellas y chispas de fondo */
+    .stars-field {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #edbb00;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(237, 187, 0, 0.9);
+      animation: pulse-twinkle var(--dur, 3s) infinite ease-in-out;
+    }
+
+    @keyframes pulse-twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.4); filter: drop-shadow(0 0 10px #fff); }
+    }
+
+    /* Estrellas fugaces doradas */
+    .comet {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, #edbb00, #ffffff, transparent);
+      border-radius: 999px;
+      opacity: 0;
+      animation: shoot 8s infinite ease-in;
+    }
+    .comet-1 { top: 12%; left: -100px; width: 140px; animation-delay: 1.2s; }
+    .comet-2 { top: 38%; left: -120px; width: 180px; animation-delay: 5s; }
+    .comet-3 { top: 72%; left: -80px; width: 110px; animation-delay: 9s; }
+
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 1; }
+      20% { transform: translateX(110vw) translateY(55vh) rotate(-35deg); opacity: 0; }
+      100% { transform: translateX(110vw) translateY(55vh) rotate(-35deg); opacity: 0; }
+    }
+
+    /* === CONTENEDOR PRINCIPAL TIPO TARJETA FIFA / BALÓN DE ORO === */
+    .main-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 660px;
+      width: 100%;
+      background: rgba(8, 13, 26, 0.88);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-radius: 36px;
+      padding: 44px 34px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9),
+                  0 0 0 1px rgba(237, 187, 0, 0.25),
+                  0 0 50px rgba(165, 0, 68, 0.25),
+                  inset 0 0 35px rgba(0, 77, 152, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    /* Borde superior estilo club */
+    .top-strip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: linear-gradient(90deg, #004D98 0%, #A50044 35%, #EDBB00 50%, #A50044 65%, #004D98 100%);
+      box-shadow: 0 0 15px rgba(237, 187, 0, 0.6);
+    }
+
+    /* Marca de agua 10 Messi */
+    .bg-goat-10 {
+      position: absolute;
+      right: -25px;
+      top: 45%;
+      transform: translateY(-50%);
+      font-size: 21rem;
+      font-weight: 900;
+      color: rgba(237, 187, 0, 0.03);
+      font-family: Impact, sans-serif;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: -12px;
+    }
+
+    /* === SECCIÓN ENCABEZADO / FICHAZA DEL JUGADOR === */
+    .header-section {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* Banner tipo Champions */
+    .trophy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(237, 187, 0, 0.15), rgba(237, 187, 0, 0.05));
+      border: 1px solid #edbb00;
+      color: #ffd700;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      padding: 7px 18px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(237, 187, 0, 0.25);
+      margin-bottom: 20px;
+      animation: glowPulse 3s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 10px rgba(237, 187, 0, 0.2); }
+      100% { box-shadow: 0 0 22px rgba(237, 187, 0, 0.55); }
+    }
+
+    /* Camiseta Blaugrana 3D */
+    .jersey-container {
+      margin: 0 auto 16px;
+      width: 100px;
+      height: 105px;
+      position: relative;
+      perspective: 800px;
+    }
+
+    .jersey {
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(90deg, #004D98 0, #004D98 16px, #A50044 16px, #A50044 32px);
+      border-radius: 18px 18px 24px 24px;
+      border: 2px solid #edbb00;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(237, 187, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: jerseyFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes jerseyFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    /* Cuello de la camiseta */
+    .jersey-collar {
+      position: absolute;
+      top: 0;
+      width: 38px;
+      height: 14px;
+      background: #edbb00;
+      border-radius: 0 0 20px 20px;
+      border-bottom: 2px solid #004d98;
+    }
+
+    .jersey-player {
+      font-size: 0.68rem;
+      font-weight: 900;
+      color: #ffd700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 14px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .jersey-number {
+      font-family: Impact, sans-serif;
+      font-size: 2.9rem;
+      line-height: 0.95;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.7), 0 0 12px rgba(237, 187, 0, 0.6);
+    }
+
+    .jersey-star {
+      position: absolute;
+      bottom: 6px;
+      font-size: 0.65rem;
+      color: #edbb00;
+    }
+
+    /* Título */
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    h1 .gold-title {
+      background: linear-gradient(90deg, #edbb00 0%, #fff0a0 50%, #edbb00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(237, 187, 0, 0.4);
+    }
+
+    .motto-barca {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+
+    /* === STATS / TARJETAS DE CARACTERÍSTICAS TIPO FIFA ULTIMATE TEAM === */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 22px 0 28px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(237, 187, 0, 0.2);
+      border-radius: 16px;
+      padding: 12px 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-val {
+      font-family: Impact, sans-serif;
+      font-size: 1.6rem;
+      color: #edbb00;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px rgba(237, 187, 0, 0.35);
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* === CONTENEDOR DEL MENSAJE CARTA === */
+    .message-container {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .quote-icon {
+      font-family: 'Cinzel', serif;
+      font-size: 2.8rem;
+      color: #edbb00;
+      opacity: 0.3;
+      line-height: 0.5;
+      margin-bottom: 8px;
+    }
+
+    .message-body {
+      font-size: 1.04rem;
+      line-height: 1.85;
+      color: #e2e8f0;
+      text-align: justify;
+    }
+
+    .message-body p {
+      margin-bottom: 18px;
+    }
+
+    .message-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-gold {
+      color: #facc15;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.25);
+    }
+
+    .highlight-blaugrana {
+      color: #60a5fa;
+      font-weight: 700;
+    }
+
+    /* === SECCIÓN BOTÓN INTERACTIVO "GOAT PASS" === */
+    .interactive-zone {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .interactive-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #a50044, #004d98);
+      border: 1px solid #edbb00;
+      color: #ffffff;
+      padding: 12px 26px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(237, 187, 0, 0.3);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* === FOOTER DE LA TARJETA === */
+    .card-footer {
+      position: relative;
+      z-index: 2;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .club-values {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .circle-colors {
+      display: flex;
+      gap: 4px;
+    }
+
+    .circle-colors span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .c-blue { background: #004d98; }
+    .c-red { background: #a50044; }
+    .c-gold { background: #edbb00; }
+
+    .signature-area {
+      text-align: right;
+    }
+
+    .signature-text {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-sub {
+      font-size: 0.85rem;
+      color: #edbb00;
+      font-weight: 600;
+      display: block;
+    }
+
+    @media (max-width: 540px) {
+      .main-wrapper {
+        padding: 35px 20px;
+      }
+      h1 {
+        font-size: 1.65rem;
+      }
+      .stats-grid {
+        gap: 8px;
+      }
+      .stat-val {
+        font-size: 1.35rem;
+      }
+      .stat-label {
+        font-size: 0.65rem;
+      }
+      .card-footer {
+        flex-direction: column;
+        text-align: center;
+      }
+      .signature-area {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo estelar y nebulosas -->
+  <div class="bg-nebula"></div>
+  
+  <div class="stars-field">
+    <!-- Estrellas fugaces -->
+    <div class="comet comet-1"></div>
+    <div class="comet comet-2"></div>
+    <div class="comet comet-3"></div>
+
+    <!-- Puntos de constelaciones doradas -->
+    <div class="star" style="top: 9%; left: 14%; width: 3px; height: 3px; --dur: 2.8s;"></div>
+    <div class="star" style="top: 19%; left: 82%; width: 4px; height: 4px; --dur: 3.5s;"></div>
+    <div class="star" style="top: 31%; left: 10%; width: 2px; height: 2px; --dur: 4.2s;"></div>
+    <div class="star" style="top: 48%; left: 91%; width: 3px; height: 3px; --dur: 2.2s;"></div>
+    <div class="star" style="top: 65%; left: 7%; width: 4px; height: 4px; --dur: 3.8s;"></div>
+    <div class="star" style="top: 78%; left: 86%; width: 3px; height: 3px; --dur: 2.5s;"></div>
+    <div class="star" style="top: 89%; left: 24%; width: 2px; height: 2px; --dur: 4s;"></div>
+    <div class="star" style="top: 14%; left: 45%; width: 3px; height: 3px; --dur: 3.2s;"></div>
+    <div class="star" style="top: 92%; left: 72%; width: 4px; height: 4px; --dur: 2.9s;"></div>
+  </div>
+
+  <!-- TARJETA PRINCIPAL -->
+  <div class="main-wrapper">
+    <div class="top-strip"></div>
+    <div class="bg-goat-10">10</div>
+
+    <!-- ENCABEZADO -->
+    <div class="header-section">
+      <div class="trophy-badge">
+        <span>🏆</span> THE BEST BROTHER EDITION <span>★</span>
+      </div>
+
+      <!-- Camiseta blaugrana 3D flotante -->
+      <div class="jersey-container">
+        <div class="jersey">
+          <div class="jersey-collar"></div>
+          <span class="jersey-player">DARWIN</span>
+          <span class="jersey-number">10</span>
+          <span class="jersey-star">★ G.O.A.T ★</span>
+        </div>
+      </div>
+
+      <h1>¡Feliz Cumpleaños, <span class="gold-title">Mi Hermano</span>! 🤍</h1>
+      <p class="motto-barca">"El fútbol y la vida enseñan que los mejores equipos nunca se sueltan."</p>
+    </div>
+
+    <!-- TARJETAS DE ATRIBUTOS TIPO FIFA -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">99</div>
+        <div class="stat-label">Lealtad</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">100</div>
+        <div class="stat-label">Hermandad</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">∞</div>
+        <div class="stat-label">Valor</div>
+      </div>
+    </div>
+
+    <!-- CARTA / MENSAJE -->
+    <div class="message-container">
+      <div class="quote-icon">“</div>
+      <div class="message-body">
+        <p>
+          Hoy no quería dejar pasar tu día sin escribirte, porque más allá de cualquier momento difícil o de la distancia que hayamos tenido estos días, tú sigues siendo alguien <span class="highlight-gold">indispensable en mi vida</span>.
+        </p>
+        <p>
+          No te voy a mentir: a veces las situaciones y las pruebas nos confunden, nos hacen dudar y nos ponen en momentos complicados. Sé que en algún punto he llegado a desconfiar y que las cosas no han estado al cien, pero cuando me calmo y le hago caso al corazón, me doy cuenta de que no me imagino la vida sin tu amistad, sin tus ocurrencias y sin tus comentarios que siempre me cambian el día.
+        </p>
+        <p>
+          Sé lo sincera que es tu amistad conmigo y por eso mismo <span class="highlight-blaugrana">siempre pondría las manos al fuego por ti</span>. Hoy elijo recordar todo lo bueno, valorar a la persona que siempre has sido para mí y reafirmar que, pase lo que pase, <span class="highlight-gold">mi corazón te sigue eligiendo</span> como ese hermano que la vida me regaló.
+        </p>
+        <p>
+          Te deseo un año lleno de cosas buenas, salud, éxitos y mucha paz. ¡Te quiero con el alma, Darwin! 🎂🔟✨
+        </p>
+      </div>
+    </div>
+
+    <!-- PIE DE TARJETA -->
+    <div class="card-footer">
+      <div class="club-values">
+        <div class="circle-colors">
+          <span class="c-blue"></span>
+          <span class="c-red"></span>
+          <span class="c-gold"></span>
+        </div>
+        <span>Més que un germà • 10</span>
+      </div>
+      <div class="signature-area">
+        <div class="signature-text">Con todo mi cariño 🤍</div>
+        <span class="signature-sub">Siempre en tu equipo</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
